@@ -147,7 +147,11 @@ export function ChatWidget() {
       <div className="chat-header">
         <h1 className="chat-title">Org Design Assistant</h1>
       </div>
-      <ChatKit control={control} className="chatkit-frame" />
+      <ChatKit
+        control={control}
+        className="chatkit-frame"
+        style={{ width: '100%', height: 'min(82vh, 900px)', minHeight: 620, display: 'block' }}
+      />
     </div>
   );
 }
