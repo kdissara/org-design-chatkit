@@ -41,7 +41,8 @@ export function ChatWidget() {
       },
     },
     widgets: {
-      async onAction(action) {
+      async onAction(action, widgetItem) {
+        console.log('chatkit widget action', action, widgetItem);
         if (action.type === 'asean.select') {
           const id = action.payload?.id;
           if (typeof id === 'string') {
