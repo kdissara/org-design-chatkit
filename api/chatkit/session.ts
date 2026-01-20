@@ -23,7 +23,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const { user_id = 'default-user' } = req.body || {};
 
     // Use OpenAI SDK to create ChatKit session (like the Python example)
-    const session = await (openai as any).chatkit.sessions.create({
+    const session = await openai.beta.chatkit.sessions.create({
       workflow: { id: process.env.WORKFLOW_ID },
       user: user_id,
     });
