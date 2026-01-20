@@ -23,13 +23,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       headers: {
         'Content-Type': 'application/json',
         'OpenAI-Beta': 'chatkit_beta=v1',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${process.env.WORKFLOW_SECRET_KEY}`,
       },
       body: JSON.stringify({
-        workflow: {
-          id: process.env.WORKFLOW_ID,
-          secret: process.env.WORKFLOW_SECRET_KEY,
-        },
+        workflow: { id: process.env.WORKFLOW_ID },
         user: user_id,
       }),
     });
