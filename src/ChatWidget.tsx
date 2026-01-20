@@ -145,14 +145,7 @@ export function ChatWidget() {
   return (
     <div className="chat-panel">
       <div className="chat-header">
-        <div>
-          <p className="chat-title">Org Design Assistant</p>
-          <p className="chat-subtitle">Structured advice, scenarios, and live widgets.</p>
-        </div>
-        <div className="chat-status">
-          <span className="status-dot" />
-          Online
-        </div>
+        <h1 className="chat-title">Org Design Assistant</h1>
       </div>
       <ChatKit control={control} className="chatkit-frame" />
     </div>
