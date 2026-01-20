@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap');
 
 :root {
-  --bg-1: #f8f4ec;
-  --bg-2: #e7f2e3;
-  --bg-3: #f1eee7;
-  --ink: #1f2a21;
-  --muted: #5a6b5c;
-  --panel: #ffffff;
-  --border: rgba(22, 35, 24, 0.12);
-  --shadow: 0 18px 40px rgba(20, 30, 22, 0.12);
+  --bg-1: #0d120f;
+  --bg-2: #0c1610;
+  --bg-3: #121b14;
+  --ink: #eef5ee;
+  --muted: #9bb0a0;
+  --panel: #161d18;
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -21,8 +21,8 @@ body {
   font-family: 'Work Sans', sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(900px 600px at 10% -10%, #fbe7c2 0%, rgba(251, 231, 194, 0) 60%),
-    radial-gradient(900px 600px at 90% 10%, #d9f3da 0%, rgba(217, 243, 218, 0) 55%),
+    radial-gradient(900px 600px at 10% -10%, rgba(96, 74, 34, 0.55) 0%, rgba(96, 74, 34, 0) 60%),
+    radial-gradient(900px 600px at 90% 10%, rgba(34, 78, 54, 0.65) 0%, rgba(34, 78, 54, 0) 55%),
     linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
   min-height: 100vh;
 }
@@ -53,6 +53,7 @@ body {
 .chat-title {
   font-family: 'Sora', sans-serif;
   font-size: clamp(20px, 2vw, 28px);
+  color: var(--ink);
 }
 
 .chatkit-frame {
@@ -62,8 +63,8 @@ body {
   min-height: 620px;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(16, 20, 16, 0.2);
-  background: #111811;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0c120e;
 }
 
 @media (max-width: 900px) {
