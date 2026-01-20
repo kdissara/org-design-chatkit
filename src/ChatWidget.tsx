@@ -19,7 +19,7 @@ function getDeviceId(): string {
 }
 
 export function ChatWidget() {
-  const { control } = useChatKit({
+  const { control, sendUserMessage } = useChatKit({
     api: {
       async getClientSecret(existing) {
         if (existing) {
@@ -38,6 +38,24 @@ export function ChatWidget() {
         }
         const { client_secret } = await res.json();
         return client_secret;
+      },
+    },
+    widgets: {
+      async onAction(action) {
+        if (action.type === 'asean.select') {
+          const id = action.payload?.id;
+          if (typeof id === 'string') {
+            await sendUserMessage({ text: `Selected option ${id}.` });
+          }
+          return;
+        }
+
+        if (action.type === 'asean.custom_submit') {
+          const custom = action.payload?.custom;
+          if (typeof custom === 'string' && custom.trim()) {
+            await sendUserMessage({ text: custom.trim() });
+          }
+        }
       },
     },
   });
