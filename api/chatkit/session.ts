@@ -26,7 +26,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        workflow: { id: process.env.WORKFLOW_ID },
+        workflow: {
+          id: process.env.WORKFLOW_ID,
+          secret: process.env.WORKFLOW_SECRET_KEY,
+        },
         user: user_id,
       }),
     });
