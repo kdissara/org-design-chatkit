@@ -1,5 +1,4 @@
 import { ChatKit, useChatKit } from '@openai/chatkit-react';
-import { useState } from 'react';
 
 const DEVICE_ID_KEY = 'chatkit_device_id';
 
@@ -20,7 +19,6 @@ function getDeviceId(): string {
 }
 
 export function ChatWidget() {
-  const [lastAction, setLastAction] = useState<string | null>(null);
   const { control, sendUserMessage } = useChatKit({
     api: {
       async getClientSecret(existing) {
@@ -42,6 +40,56 @@ export function ChatWidget() {
         return client_secret;
       },
     },
+    theme: {
+      colorScheme: 'dark',
+      radius: 'round',
+      density: 'compact',
+      color: {
+        grayscale: {
+          hue: 147,
+          tint: 1,
+          shade: 2,
+        },
+        accent: {
+          primary: '#42a22f',
+          level: 1,
+        },
+      },
+      typography: {
+        baseSize: 17,
+        fontFamily:
+          '"OpenAI Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif',
+        fontFamilyMono:
+          'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace',
+        fontSources: [
+          {
+            family: 'OpenAI Sans',
+            src: 'https://cdn.openai.com/common/fonts/openai-sans/v2/OpenAISans-Regular.woff2',
+            weight: 400,
+            style: 'normal',
+            display: 'swap',
+          },
+        ],
+      },
+    },
+    composer: {
+      placeholder: 'พิมพ์ข้อความส่งให้ผู้ช่วยการออกแบบโครงสร้างองค์กร',
+      attachments: {
+        enabled: true,
+        maxCount: 5,
+        maxSize: 10485760,
+      },
+    },
+    startScreen: {
+      greeting: 'ต้องการความช่วยเหลือด้านใดครับ',
+      prompts: [
+        {
+          icon: 'circle-question',
+          label: 'What is ChatKit?',
+          prompt: 'What is ChatKit?',
+        },
+      ],
+    },
     onReady() {
       console.log('chatkit ready');
     },
@@ -51,8 +99,6 @@ export function ChatWidget() {
     widgets: {
       async onAction(action, widgetItem) {
         console.log('chatkit widget action', action, widgetItem);
-        const payload = action.payload ? JSON.stringify(action.payload) : '';
-        setLastAction(`${action.type}${payload ? ` ${payload}` : ''}`);
         if (action.type === 'asean.select') {
           const id = action.payload?.id;
           if (typeof id === 'string') {
@@ -74,7 +120,6 @@ export function ChatWidget() {
   return (
     <div className="chat-container">
       <h1>Org Design Assistant</h1>
-      {lastAction ? <div>Widget action: {lastAction}</div> : null}
       <ChatKit control={control} style={{ height: '600px', width: '100%', maxWidth: '800px' }} />
     </div>
   );
