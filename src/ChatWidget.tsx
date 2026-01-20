@@ -84,9 +84,34 @@ export function ChatWidget() {
       greeting: 'ต้องการความช่วยเหลือด้านใดครับ',
       prompts: [
         {
-          icon: 'circle-question',
-          label: 'What is ChatKit?',
-          prompt: 'What is ChatKit?',
+          icon: 'chart',
+          label: 'ขอคำแนะนำโครงสร้างองค์กรใหม่',
+          prompt: 'ช่วยแนะนำโครงสร้างองค์กรสำหรับธุรกิจ HR tech ขนาด 15 คน พร้อมบทบาทหลักและสายบังคับบัญชา',
+        },
+        {
+          icon: 'compass',
+          label: 'ถามแบบมีตัวเลือก (guided)',
+          prompt: 'ช่วยถามคำถามสำคัญแบบตัวเลือกเพื่อออกแบบโครงสร้างองค์กรของเรา',
+        },
+        {
+          icon: 'profile-card',
+          label: 'ออกแบบระดับตำแหน่ง (IC/Manager)',
+          prompt: 'ช่วยสร้างระดับตำแหน่ง IC และ Manager พร้อมเกณฑ์แต่ละระดับให้เหมาะกับบริษัทเรา',
+        },
+        {
+          icon: 'book-open',
+          label: 'เช็คลิสต์การปรับโครงสร้าง',
+          prompt: 'ขอเช็คลิสต์ขั้นตอนการปรับโครงสร้างองค์กรและสิ่งที่ต้องเตรียมก่อนสื่อสาร',
+        },
+        {
+          icon: 'sparkle',
+          label: 'เปรียบเทียบโครงสร้างสองแบบ',
+          prompt: 'ช่วยเปรียบเทียบโครงสร้างแบบ functional กับ product pod สำหรับบริษัท 50 คน',
+        },
+        {
+          icon: 'search',
+          label: 'สรุปโครงสร้างปัจจุบัน (S.Napa/Gusco/GEM)',
+          prompt: 'ช่วยสรุปโครงสร้างปัจจุบันของ GEM จากข้อมูลที่มี และบอกเหตุผลสำคัญของโครงสร้างนั้น',
         },
       ],
     },
@@ -118,9 +143,18 @@ export function ChatWidget() {
   });
 
   return (
-    <div className="chat-container">
-      <h1>Org Design Assistant</h1>
-      <ChatKit control={control} style={{ height: '600px', width: '100%', maxWidth: '800px' }} />
+    <div className="chat-panel">
+      <div className="chat-header">
+        <div>
+          <p className="chat-title">Org Design Assistant</p>
+          <p className="chat-subtitle">Structured advice, scenarios, and live widgets.</p>
+        </div>
+        <div className="chat-status">
+          <span className="status-dot" />
+          Online
+        </div>
+      </div>
+      <ChatKit control={control} className="chatkit-frame" />
     </div>
   );
 }
