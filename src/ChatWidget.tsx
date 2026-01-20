@@ -45,7 +45,7 @@ export function ChatWidget() {
   return (
     <div className="chat-container">
       <h1>Org Design Assistant</h1>
-      <ChatKit control={control} className="h-[600px] w-full max-w-[800px]" />
+      <ChatKit control={control} style={{ height: '600px', width: '100%', maxWidth: '800px' }} />
     </div>
   );
 }
