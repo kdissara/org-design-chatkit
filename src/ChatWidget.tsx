@@ -118,20 +118,75 @@ export function ChatWidget() {
     },
     widgets: {
       async onAction(action, widgetItem) {
-        console.log('chatkit widget action', action, widgetItem);
-        if (action.type === 'asean.select') {
-          const id = action.payload?.id;
-          if (typeof id === 'string') {
-            await sendUserMessage({ text: `Selected option ${id}.` });
-          }
-          return;
-        }
+        console.log('chatkit widget action', JSON.stringify(action, null, 2));
 
-        if (action.type === 'asean.custom_submit') {
-          const custom = action.payload?.custom;
-          if (typeof custom === 'string' && custom.trim()) {
-            await sendUserMessage({ text: custom.trim() });
+        try {
+          const payload = action.payload;
+
+          // Handle guided choice select (asean pattern)
+          if (action.type === 'guided_choice.select' || action.type === 'asean.select') {
+            const id = payload?.optionId || payload?.id;
+            if (typeof id === 'string') {
+              await sendUserMessage({ text: `Selected: ${id}` });
+            }
+            return;
           }
+
+          // Handle guided choice free text submit
+          if (action.type === 'guided_choice.free_text_submit' || action.type === 'asean.custom_submit') {
+            const custom = payload?.custom || payload?.text;
+            if (typeof custom === 'string' && custom.trim()) {
+              await sendUserMessage({ text: custom.trim() });
+            }
+            return;
+          }
+
+          // Handle intake form submit
+          if (action.type === 'intake.submit') {
+            const formatKey = (key: string): string => {
+              return key
+                .replace(/_/g, ' ')
+                .replace(/\b\w/g, (c) => c.toUpperCase());
+            };
+
+            const formatValue = (value: string): string => {
+              return value.replace(/_/g, ' ');
+            };
+
+            const extractFields = (obj: Record<string, unknown>): string[] => {
+              const lines: string[] = [];
+              for (const [key, value] of Object.entries(obj)) {
+                if (key === 'widgetId' || key === 'includeFields') continue;
+                if (value === '' || value === null || value === undefined) continue;
+                if (typeof value === 'object' && value !== null) {
+                  lines.push(...extractFields(value as Record<string, unknown>));
+                } else {
+                  lines.push(`- ${formatKey(key)}: ${formatValue(String(value))}`);
+                }
+              }
+              return lines;
+            };
+
+            const fields = extractFields(payload || {});
+            const text = fields.length > 0
+              ? `User submitted intake form:\n${fields.join('\n')}`
+              : 'User submitted intake form.';
+
+            console.log('Sending intake message:', text);
+            await sendUserMessage({ text });
+            console.log('Intake message sent');
+            return;
+          }
+
+          // Handle intake cancel
+          if (action.type === 'intake.cancel') {
+            await sendUserMessage({ text: 'User cancelled the intake form.' });
+            return;
+          }
+
+          console.log('No matching handler for action type:', action.type);
+        } catch (err) {
+          console.error('Failed to handle action:', err);
         }
       },
     },
