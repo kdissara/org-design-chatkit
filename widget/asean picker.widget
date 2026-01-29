@@ -1,0 +1,281 @@
+{
+  "version": "1.0",
+  "name": "asean picker",
+  "template": "{\"type\":\"Card\",\"size\":\"md\",\"children\":[{\"type\":\"Col\",\"gap\":2,\"children\":[{\"type\":\"Title\",\"value\":{{ (question) | tojson }},\"size\":\"sm\"},{\"type\":\"Text\",\"value\":\"Tap an option to pick, or write your own.\",\"size\":\"sm\",\"color\":\"secondary\"}]},{\"type\":\"Divider\",\"flush\":true},{\"type\":\"ListView\",\"children\":[{%- set _c -%}{%-for item in options -%},{\"type\":\"ListViewItem\",\"key\":{{ (item.id) | tojson }},\"gap\":3,\"onClickAction\":{\"type\":\"asean.select\",\"payload\":{\"id\":{{ (item.id) | tojson }}},\"handler\":\"client\"},\"children\":[{\"type\":\"Col\",\"gap\":1,\"children\":[{\"type\":\"Row\",\"gap\":2,\"children\":[{\"type\":\"Badge\",\"label\":{{ (item.tag) | tojson }},\"color\":\"discovery\"},{\"type\":\"Text\",\"value\":{{ (item.title) | tojson }},\"size\":\"sm\",\"weight\":\"semibold\"}]},{\"type\":\"Text\",\"value\":{{ (item.description) | tojson }},\"size\":\"sm\",\"color\":\"secondary\"}]},{\"type\":\"Spacer\"},{\"type\":\"Icon\",\"name\":\"chevron-right\",\"color\":\"secondary\"}]}{%-endfor-%}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]},{\"type\":\"Divider\",\"flush\":true},{\"type\":\"Form\",\"onSubmitAction\":{\"type\":\"asean.custom_submit\",\"handler\":\"client\"},\"children\":[{\"type\":\"Col\",\"gap\":2,\"children\":[{\"type\":\"Label\",\"value\":\"Or propose your own\",\"fieldName\":\"custom\"},{\"type\":\"Textarea\",\"name\":\"custom\",\"placeholder\":{{ (customPlaceholder) | tojson }},\"rows\":4,\"autoResize\":true},{\"type\":\"Row\",\"children\":[{\"type\":\"Spacer\"},{\"type\":\"Button\",\"submit\":true,\"style\":\"primary\",\"label\":\"Submit\"}]}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "question": {
+        "type": "string"
+      },
+      "options": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "tag",
+            "title",
+            "description"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "customPlaceholder": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "question",
+      "options",
+      "customPlaceholder"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "md",
+    "children": [
+      {
+        "type": "Col",
+        "gap": 2,
+        "children": [
+          {
+            "type": "Title",
+            "value": "What if I need to expand GEM to ASEAN countries?",
+            "size": "sm"
+          },
+          {
+            "type": "Text",
+            "value": "Tap an option to pick, or write your own.",
+            "size": "sm",
+            "color": "secondary"
+          }
+        ]
+      },
+      {
+        "type": "Divider",
+        "flush": true
+      },
+      {
+        "type": "ListView",
+        "children": [
+          {
+            "type": "ListViewItem",
+            "key": "A",
+            "gap": 3,
+            "onClickAction": {
+              "type": "asean.select",
+              "payload": {
+                "id": "A"
+              },
+              "handler": "client"
+            },
+            "children": [
+              {
+                "type": "Col",
+                "gap": 1,
+                "children": [
+                  {
+                    "type": "Row",
+                    "gap": 2,
+                    "children": [
+                      {
+                        "type": "Badge",
+                        "label": "Option A",
+                        "color": "discovery"
+                      },
+                      {
+                        "type": "Text",
+                        "value": "Thailand hub + country sales (lightweight)",
+                        "size": "sm",
+                        "weight": "semibold"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Text",
+                    "value": "Keep solutioning, partner-China mgmt, standards, commissioning SWAT, and delivery governance in Thailand. Start with 1 BD/KAM per target country; build local delivery later.",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Icon",
+                "name": "chevron-right",
+                "color": "secondary"
+              }
+            ]
+          },
+          {
+            "type": "ListViewItem",
+            "key": "B",
+            "gap": 3,
+            "onClickAction": {
+              "type": "asean.select",
+              "payload": {
+                "id": "B"
+              },
+              "handler": "client"
+            },
+            "children": [
+              {
+                "type": "Col",
+                "gap": 1,
+                "children": [
+                  {
+                    "type": "Row",
+                    "gap": 2,
+                    "children": [
+                      {
+                        "type": "Badge",
+                        "label": "Option B",
+                        "color": "discovery"
+                      },
+                      {
+                        "type": "Text",
+                        "value": "Regional hub + country business units (scalable)",
+                        "size": "sm",
+                        "weight": "semibold"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Text",
+                    "value": "Add an ASEAN Regional Director; create small ‘mini‑GEM’ teams per country (Commercial + Delivery/O&M); run a regional CoE for standards, pre‑sales, commissioning, and QHSE.",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Icon",
+                "name": "chevron-right",
+                "color": "secondary"
+              }
+            ]
+          },
+          {
+            "type": "ListViewItem",
+            "key": "C",
+            "gap": 3,
+            "onClickAction": {
+              "type": "asean.select",
+              "payload": {
+                "id": "C"
+              },
+              "handler": "client"
+            },
+            "children": [
+              {
+                "type": "Col",
+                "gap": 1,
+                "children": [
+                  {
+                    "type": "Row",
+                    "gap": 2,
+                    "children": [
+                      {
+                        "type": "Badge",
+                        "label": "Option C",
+                        "color": "discovery"
+                      },
+                      {
+                        "type": "Text",
+                        "value": "Partner‑led delivery (asset‑light)",
+                        "size": "sm",
+                        "weight": "semibold"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Text",
+                    "value": "GEM owns sales, solution design, and performance governance; local EPC/O&M partners deliver under GEM standards.",
+                    "size": "sm",
+                    "color": "secondary"
+                  }
+                ]
+              },
+              {
+                "type": "Spacer"
+              },
+              {
+                "type": "Icon",
+                "name": "chevron-right",
+                "color": "secondary"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Divider",
+        "flush": true
+      },
+      {
+        "type": "Form",
+        "onSubmitAction": {
+          "type": "asean.custom_submit",
+          "handler": "client"
+        },
+        "children": [
+          {
+            "type": "Col",
+            "gap": 2,
+            "children": [
+              {
+                "type": "Label",
+                "value": "Or propose your own",
+                "fieldName": "custom"
+              },
+              {
+                "type": "Textarea",
+                "name": "custom",
+                "placeholder": "Write your own approach (100–200 words)…",
+                "rows": 4,
+                "autoResize": true
+              },
+              {
+                "type": "Row",
+                "children": [
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Button",
+                    "submit": true,
+                    "style": "primary",
+                    "label": "Submit"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IndpZ181bTJ3OW5iYSIsIm5hbWUiOiJhc2VhbiBwaWNrZXIiLCJ2aWV3IjoiPENhcmQgc2l6ZT1cIm1kXCI-XG4gIDxDb2wgZ2FwPXsyfT5cbiAgICA8VGl0bGUgdmFsdWU9e3F1ZXN0aW9ufSBzaXplPVwic21cIiAvPlxuICAgIDxUZXh0XG4gICAgICB2YWx1ZT1cIlRhcCBhbiBvcHRpb24gdG8gcGljaywgb3Igd3JpdGUgeW91ciBvd24uXCJcbiAgICAgIHNpemU9XCJzbVwiXG4gICAgICBjb2xvcj1cInNlY29uZGFyeVwiXG4gICAgLz5cbiAgPC9Db2w-XG4gIDxEaXZpZGVyIGZsdXNoIC8-XG4gIDxMaXN0Vmlldz5cbiAgICB7b3B0aW9ucy5tYXAoKGl0ZW0pID0-IChcbiAgICAgIDxMaXN0Vmlld0l0ZW1cbiAgICAgICAga2V5PXtpdGVtLmlkfVxuICAgICAgICBnYXA9ezN9XG4gICAgICAgIG9uQ2xpY2tBY3Rpb249e3sgdHlwZTogXCJhc2Vhbi5zZWxlY3RcIiwgcGF5bG9hZDogeyBpZDogaXRlbS5pZCB9IH19XG4gICAgICA-XG4gICAgICAgIDxDb2wgZ2FwPXsxfT5cbiAgICAgICAgICA8Um93IGdhcD17Mn0-XG4gICAgICAgICAgICA8QmFkZ2UgbGFiZWw9e2l0ZW0udGFnfSBjb2xvcj1cImRpc2NvdmVyeVwiIC8-XG4gICAgICAgICAgICA8VGV4dCB2YWx1ZT17aXRlbS50aXRsZX0gc2l6ZT1cInNtXCIgd2VpZ2h0PVwic2VtaWJvbGRcIiAvPlxuICAgICAgICAgIDwvUm93PlxuICAgICAgICAgIDxUZXh0IHZhbHVlPXtpdGVtLmRlc2NyaXB0aW9ufSBzaXplPVwic21cIiBjb2xvcj1cInNlY29uZGFyeVwiIC8-XG4gICAgICAgIDwvQ29sPlxuICAgICAgICA8U3BhY2VyIC8-XG4gICAgICAgIDxJY29uIG5hbWU9XCJjaGV2cm9uLXJpZ2h0XCIgY29sb3I9XCJzZWNvbmRhcnlcIiAvPlxuICAgICAgPC9MaXN0Vmlld0l0ZW0-XG4gICAgKSl9XG4gIDwvTGlzdFZpZXc-XG4gIDxEaXZpZGVyIGZsdXNoIC8-XG4gIDxGb3JtIG9uU3VibWl0QWN0aW9uPXt7IHR5cGU6IFwiYXNlYW4uY3VzdG9tX3N1Ym1pdFwiIH19PlxuICAgIDxDb2wgZ2FwPXsyfT5cbiAgICAgIDxMYWJlbCB2YWx1ZT1cIk9yIHByb3Bvc2UgeW91ciBvd25cIiBmaWVsZE5hbWU9XCJjdXN0b21cIiAvPlxuICAgICAgPFRleHRhcmVhXG4gICAgICAgIG5hbWU9XCJjdXN0b21cIlxuICAgICAgICBwbGFjZWhvbGRlcj17Y3VzdG9tUGxhY2Vob2xkZXJ9XG4gICAgICAgIHJvd3M9ezR9XG4gICAgICAgIGF1dG9SZXNpemVcbiAgICAgIC8-XG4gICAgICA8Um93PlxuICAgICAgICA8U3BhY2VyIC8-XG4gICAgICAgIDxCdXR0b24gc3VibWl0IHN0eWxlPVwicHJpbWFyeVwiIGxhYmVsPVwiU3VibWl0XCIgLz5cbiAgICAgIDwvUm93PlxuICAgIDwvQ29sPlxuICA8L0Zvcm0-XG48L0NhcmQ-IiwiZGVmYXVsdFN0YXRlIjp7InF1ZXN0aW9uIjoiV2hhdCBpZiBJIG5lZWQgdG8gZXhwYW5kIEdFTSB0byBBU0VBTiBjb3VudHJpZXM_Iiwib3B0aW9ucyI6W3siaWQiOiJBIiwidGFnIjoiT3B0aW9uIEEiLCJ0aXRsZSI6IlRoYWlsYW5kIGh1YiArIGNvdW50cnkgc2FsZXMgKGxpZ2h0d2VpZ2h0KSIsImRlc2NyaXB0aW9uIjoiS2VlcCBzb2x1dGlvbmluZywgcGFydG5lci1DaGluYSBtZ210LCBzdGFuZGFyZHMsIGNvbW1pc3Npb25pbmcgU1dBVCwgYW5kIGRlbGl2ZXJ5IGdvdmVybmFuY2UgaW4gVGhhaWxhbmQuIFN0YXJ0IHdpdGggMSBCRC9LQU0gcGVyIHRhcmdldCBjb3VudHJ5OyBidWlsZCBsb2NhbCBkZWxpdmVyeSBsYXRlci4ifSx7ImlkIjoiQiIsInRhZyI6Ik9wdGlvbiBCIiwidGl0bGUiOiJSZWdpb25hbCBodWIgKyBjb3VudHJ5IGJ1c2luZXNzIHVuaXRzIChzY2FsYWJsZSkiLCJkZXNjcmlwdGlvbiI6IkFkZCBhbiBBU0VBTiBSZWdpb25hbCBEaXJlY3RvcjsgY3JlYXRlIHNtYWxsIOKAmG1pbmnigJFHRU3igJkgdGVhbXMgcGVyIGNvdW50cnkgKENvbW1lcmNpYWwgKyBEZWxpdmVyeS9PJk0pOyBydW4gYSByZWdpb25hbCBDb0UgZm9yIHN0YW5kYXJkcywgcHJl4oCRc2FsZXMsIGNvbW1pc3Npb25pbmcsIGFuZCBRSFNFLiJ9LHsiaWQiOiJDIiwidGFnIjoiT3B0aW9uIEMiLCJ0aXRsZSI6IlBhcnRuZXLigJFsZWQgZGVsaXZlcnkgKGFzc2V04oCRbGlnaHQpIiwiZGVzY3JpcHRpb24iOiJHRU0gb3ducyBzYWxlcywgc29sdXRpb24gZGVzaWduLCBhbmQgcGVyZm9ybWFuY2UgZ292ZXJuYW5jZTsgbG9jYWwgRVBDL08mTSBwYXJ0bmVycyBkZWxpdmVyIHVuZGVyIEdFTSBzdGFuZGFyZHMuIn1dLCJjdXN0b21QbGFjZWhvbGRlciI6IldyaXRlIHlvdXIgb3duIGFwcHJvYWNoICgxMDDigJMyMDAgd29yZHMp4oCmIn0sInN0YXRlcyI6W10sInNjaGVtYSI6ImltcG9ydCB7IHogfSBmcm9tIFwiem9kXCJcblxuY29uc3QgT3B0aW9uID0gei5zdHJpY3RPYmplY3Qoe1xuICBpZDogei5zdHJpbmcoKSxcbiAgdGFnOiB6LnN0cmluZygpLFxuICB0aXRsZTogei5zdHJpbmcoKSxcbiAgZGVzY3JpcHRpb246IHouc3RyaW5nKCksXG59KVxuXG5jb25zdCBXaWRnZXRTdGF0ZSA9IHouc3RyaWN0T2JqZWN0KHtcbiAgcXVlc3Rpb246IHouc3RyaW5nKCksXG4gIG9wdGlvbnM6IHouYXJyYXkoT3B0aW9uKSxcbiAgY3VzdG9tUGxhY2Vob2xkZXI6IHouc3RyaW5nKCksXG59KVxuXG5leHBvcnQgZGVmYXVsdCBXaWRnZXRTdGF0ZSIsImpzb25TY2hlbWEiOnt9LCJzY2hlbWFNb2RlIjoiem9kIiwic2NoZW1hVmFsaWRpdHkiOiJ2YWxpZCIsInZpZXdWYWxpZGl0eSI6InZhbGlkIiwiZGVmYXVsdFN0YXRlVmFsaWRpdHkiOiJ2YWxpZCJ9"
+}

@@ -1,0 +1,295 @@
+{
+  "version": "1.0",
+  "name": "Guided Intake Builder",
+  "template": "{\"type\":\"Card\",\"size\":\"sm\",\"children\":[{\"type\":\"Col\",\"gap\":2,\"children\":[{\"type\":\"Title\",\"value\":{{ (title) | tojson }},\"size\":\"md\"},{\"type\":\"Text\",\"value\":{{ (subtitle) | tojson }},\"size\":\"sm\",\"color\":\"secondary\"}]},{\"type\":\"Divider\"},{\"type\":\"Form\",\"onSubmitAction\":{\"type\":\"intake.submit\",\"handler\":\"client\"},\"children\":[{\"type\":\"Col\",\"gap\":3,\"children\":[{%- set _c -%}{%-for q in questions -%},{\"type\":\"Row\",\"key\":{{ (q.id) | tojson }},\"align\":\"center\",\"gap\":3,\"children\":[{\"type\":\"Label\",\"value\":{{ (q.label) | tojson }},\"fieldName\":{{ ((\"intake.\" ~ q.id)) | tojson }}},{\"type\":\"Spacer\"},{\"type\":\"Select\",\"name\":{{ ((\"intake.\" ~ q.id)) | tojson }},\"options\":{{ (q.options) | tojson }},\"placeholder\":\"Choose…\"}]}{%-endfor-%},{\"type\":\"Row\",\"align\":\"start\",\"gap\":3,\"children\":[{\"type\":\"Label\",\"value\":\"Additional notes (optional)\",\"fieldName\":\"intake.notes\"},{\"type\":\"Spacer\"},{\"type\":\"Textarea\",\"name\":\"intake.notes\",\"placeholder\":{{ (notesPlaceholder) | tojson }},\"rows\":3,\"autoResize\":true}]},{\"type\":\"Row\",\"children\":[{\"type\":\"Spacer\"},{\"type\":\"Button\",\"submit\":true,\"style\":\"primary\",\"label\":\"Submit intake\"}]}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]}]}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "subtitle": {
+        "type": "string"
+      },
+      "questions": {
+        "minItems": 2,
+        "maxItems": 4,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "options": {
+              "minItems": 3,
+              "maxItems": 6,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "disabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "value",
+                  "label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "id",
+            "label",
+            "options"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "notesPlaceholder": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "title",
+      "subtitle",
+      "questions",
+      "notesPlaceholder"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "Card",
+    "size": "sm",
+    "children": [
+      {
+        "type": "Col",
+        "gap": 2,
+        "children": [
+          {
+            "type": "Title",
+            "value": "Quick intake",
+            "size": "md"
+          },
+          {
+            "type": "Text",
+            "value": "Answer a few key choices so the next step is decisive.",
+            "size": "sm",
+            "color": "secondary"
+          }
+        ]
+      },
+      {
+        "type": "Divider"
+      },
+      {
+        "type": "Form",
+        "onSubmitAction": {
+          "type": "intake.submit",
+          "handler": "client"
+        },
+        "children": [
+          {
+            "type": "Col",
+            "gap": 3,
+            "children": [
+              {
+                "type": "Row",
+                "key": "scope",
+                "align": "center",
+                "gap": 3,
+                "children": [
+                  {
+                    "type": "Label",
+                    "value": "What scope are we addressing?",
+                    "fieldName": "intake.scope"
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Select",
+                    "name": "intake.scope",
+                    "options": [
+                      {
+                        "value": "whole",
+                        "label": "Whole thing",
+                        "description": "End-to-end"
+                      },
+                      {
+                        "value": "area",
+                        "label": "One area",
+                        "description": "A function or domain"
+                      },
+                      {
+                        "value": "team",
+                        "label": "One team",
+                        "description": "A specific group"
+                      },
+                      {
+                        "value": "role",
+                        "label": "One role/item",
+                        "description": "Single role or unit"
+                      },
+                      {
+                        "value": "unsure",
+                        "label": "Not sure / decide later"
+                      }
+                    ],
+                    "placeholder": "Choose…"
+                  }
+                ]
+              },
+              {
+                "type": "Row",
+                "key": "goal",
+                "align": "center",
+                "gap": 3,
+                "children": [
+                  {
+                    "type": "Label",
+                    "value": "Primary goal?",
+                    "fieldName": "intake.goal"
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Select",
+                    "name": "intake.goal",
+                    "options": [
+                      {
+                        "value": "speed",
+                        "label": "Speed",
+                        "description": "Ship or act faster"
+                      },
+                      {
+                        "value": "clarity",
+                        "label": "Clarity",
+                        "description": "Define, align"
+                      },
+                      {
+                        "value": "cost",
+                        "label": "Cost",
+                        "description": "Save money"
+                      },
+                      {
+                        "value": "quality",
+                        "label": "Quality",
+                        "description": "Improve results"
+                      },
+                      {
+                        "value": "unsure",
+                        "label": "Not sure / decide later"
+                      }
+                    ],
+                    "placeholder": "Choose…"
+                  }
+                ]
+              },
+              {
+                "type": "Row",
+                "key": "constraint",
+                "align": "center",
+                "gap": 3,
+                "children": [
+                  {
+                    "type": "Label",
+                    "value": "Which constraint matters most?",
+                    "fieldName": "intake.constraint"
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Select",
+                    "name": "intake.constraint",
+                    "options": [
+                      {
+                        "value": "time",
+                        "label": "Time",
+                        "description": "Deadlines or urgency"
+                      },
+                      {
+                        "value": "budget",
+                        "label": "Budget",
+                        "description": "Spend limits"
+                      },
+                      {
+                        "value": "people",
+                        "label": "People",
+                        "description": "Skills or capacity"
+                      },
+                      {
+                        "value": "rules",
+                        "label": "Rules",
+                        "description": "Policy or compliance"
+                      },
+                      {
+                        "value": "unsure",
+                        "label": "Not sure / decide later"
+                      }
+                    ],
+                    "placeholder": "Choose…"
+                  }
+                ]
+              },
+              {
+                "type": "Row",
+                "align": "start",
+                "gap": 3,
+                "children": [
+                  {
+                    "type": "Label",
+                    "value": "Additional notes (optional)",
+                    "fieldName": "intake.notes"
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Textarea",
+                    "name": "intake.notes",
+                    "placeholder": "Anything else we should know?",
+                    "rows": 3,
+                    "autoResize": true
+                  }
+                ]
+              },
+              {
+                "type": "Row",
+                "children": [
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Button",
+                    "submit": true,
+                    "style": "primary",
+                    "label": "Submit intake"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6IjIwYmMzMGZjLTY3NzItNDVlYi05M2U4LTFiMGUyMTgwMzZmZSIsIm5hbWUiOiJHdWlkZWQgSW50YWtlIEJ1aWxkZXIiLCJ2aWV3IjoiPENhcmQgc2l6ZT1cInNtXCI-XG4gIDxDb2wgZ2FwPXsyfT5cbiAgICA8VGl0bGUgdmFsdWU9e3RpdGxlfSBzaXplPVwibWRcIiAvPlxuICAgIDxUZXh0IHZhbHVlPXtzdWJ0aXRsZX0gc2l6ZT1cInNtXCIgY29sb3I9XCJzZWNvbmRhcnlcIiAvPlxuICA8L0NvbD5cbiAgPERpdmlkZXIgLz5cbiAgPEZvcm0gb25TdWJtaXRBY3Rpb249e3sgdHlwZTogXCJpbnRha2Uuc3VibWl0XCIgfX0-XG4gICAgPENvbCBnYXA9ezN9PlxuICAgICAge3F1ZXN0aW9ucy5tYXAoKHEpID0-IChcbiAgICAgICAgPFJvdyBrZXk9e3EuaWR9IGFsaWduPVwiY2VudGVyXCIgZ2FwPXszfT5cbiAgICAgICAgICA8TGFiZWwgdmFsdWU9e3EubGFiZWx9IGZpZWxkTmFtZT17YGludGFrZS4ke3EuaWR9YH0gLz5cbiAgICAgICAgICA8U3BhY2VyIC8-XG4gICAgICAgICAgPFNlbGVjdFxuICAgICAgICAgICAgbmFtZT17YGludGFrZS4ke3EuaWR9YH1cbiAgICAgICAgICAgIG9wdGlvbnM9e3Eub3B0aW9uc31cbiAgICAgICAgICAgIHBsYWNlaG9sZGVyPVwiQ2hvb3Nl4oCmXCJcbiAgICAgICAgICAvPlxuICAgICAgICA8L1Jvdz5cbiAgICAgICkpfVxuICAgICAgPFJvdyBhbGlnbj1cInN0YXJ0XCIgZ2FwPXszfT5cbiAgICAgICAgPExhYmVsIHZhbHVlPVwiQWRkaXRpb25hbCBub3RlcyAob3B0aW9uYWwpXCIgZmllbGROYW1lPVwiaW50YWtlLm5vdGVzXCIgLz5cbiAgICAgICAgPFNwYWNlciAvPlxuICAgICAgICA8VGV4dGFyZWFcbiAgICAgICAgICBuYW1lPVwiaW50YWtlLm5vdGVzXCJcbiAgICAgICAgICBwbGFjZWhvbGRlcj17bm90ZXNQbGFjZWhvbGRlcn1cbiAgICAgICAgICByb3dzPXszfVxuICAgICAgICAgIGF1dG9SZXNpemVcbiAgICAgICAgLz5cbiAgICAgIDwvUm93PlxuICAgICAgPFJvdz5cbiAgICAgICAgPFNwYWNlciAvPlxuICAgICAgICA8QnV0dG9uIHN1Ym1pdCBzdHlsZT1cInByaW1hcnlcIiBsYWJlbD1cIlN1Ym1pdCBpbnRha2VcIiAvPlxuICAgICAgPC9Sb3c-XG4gICAgPC9Db2w-XG4gIDwvRm9ybT5cbjwvQ2FyZD4iLCJkZWZhdWx0U3RhdGUiOnsidGl0bGUiOiJRdWljayBpbnRha2UiLCJzdWJ0aXRsZSI6IkFuc3dlciBhIGZldyBrZXkgY2hvaWNlcyBzbyB0aGUgbmV4dCBzdGVwIGlzIGRlY2lzaXZlLiIsIm5vdGVzUGxhY2Vob2xkZXIiOiJBbnl0aGluZyBlbHNlIHdlIHNob3VsZCBrbm93PyIsInF1ZXN0aW9ucyI6W3siaWQiOiJzY29wZSIsImxhYmVsIjoiV2hhdCBzY29wZSBhcmUgd2UgYWRkcmVzc2luZz8iLCJvcHRpb25zIjpbeyJ2YWx1ZSI6Indob2xlIiwibGFiZWwiOiJXaG9sZSB0aGluZyIsImRlc2NyaXB0aW9uIjoiRW5kLXRvLWVuZCJ9LHsidmFsdWUiOiJhcmVhIiwibGFiZWwiOiJPbmUgYXJlYSIsImRlc2NyaXB0aW9uIjoiQSBmdW5jdGlvbiBvciBkb21haW4ifSx7InZhbHVlIjoidGVhbSIsImxhYmVsIjoiT25lIHRlYW0iLCJkZXNjcmlwdGlvbiI6IkEgc3BlY2lmaWMgZ3JvdXAifSx7InZhbHVlIjoicm9sZSIsImxhYmVsIjoiT25lIHJvbGUvaXRlbSIsImRlc2NyaXB0aW9uIjoiU2luZ2xlIHJvbGUgb3IgdW5pdCJ9LHsidmFsdWUiOiJ1bnN1cmUiLCJsYWJlbCI6Ik5vdCBzdXJlIC8gZGVjaWRlIGxhdGVyIn1dfSx7ImlkIjoiZ29hbCIsImxhYmVsIjoiUHJpbWFyeSBnb2FsPyIsIm9wdGlvbnMiOlt7InZhbHVlIjoic3BlZWQiLCJsYWJlbCI6IlNwZWVkIiwiZGVzY3JpcHRpb24iOiJTaGlwIG9yIGFjdCBmYXN0ZXIifSx7InZhbHVlIjoiY2xhcml0eSIsImxhYmVsIjoiQ2xhcml0eSIsImRlc2NyaXB0aW9uIjoiRGVmaW5lLCBhbGlnbiJ9LHsidmFsdWUiOiJjb3N0IiwibGFiZWwiOiJDb3N0IiwiZGVzY3JpcHRpb24iOiJTYXZlIG1vbmV5In0seyJ2YWx1ZSI6InF1YWxpdHkiLCJsYWJlbCI6IlF1YWxpdHkiLCJkZXNjcmlwdGlvbiI6IkltcHJvdmUgcmVzdWx0cyJ9LHsidmFsdWUiOiJ1bnN1cmUiLCJsYWJlbCI6Ik5vdCBzdXJlIC8gZGVjaWRlIGxhdGVyIn1dfSx7ImlkIjoiY29uc3RyYWludCIsImxhYmVsIjoiV2hpY2ggY29uc3RyYWludCBtYXR0ZXJzIG1vc3Q_Iiwib3B0aW9ucyI6W3sidmFsdWUiOiJ0aW1lIiwibGFiZWwiOiJUaW1lIiwiZGVzY3JpcHRpb24iOiJEZWFkbGluZXMgb3IgdXJnZW5jeSJ9LHsidmFsdWUiOiJidWRnZXQiLCJsYWJlbCI6IkJ1ZGdldCIsImRlc2NyaXB0aW9uIjoiU3BlbmQgbGltaXRzIn0seyJ2YWx1ZSI6InBlb3BsZSIsImxhYmVsIjoiUGVvcGxlIiwiZGVzY3JpcHRpb24iOiJTa2lsbHMgb3IgY2FwYWNpdHkifSx7InZhbHVlIjoicnVsZXMiLCJsYWJlbCI6IlJ1bGVzIiwiZGVzY3JpcHRpb24iOiJQb2xpY3kgb3IgY29tcGxpYW5jZSJ9LHsidmFsdWUiOiJ1bnN1cmUiLCJsYWJlbCI6Ik5vdCBzdXJlIC8gZGVjaWRlIGxhdGVyIn1dfV19LCJzdGF0ZXMiOltdLCJzY2hlbWEiOiJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiXG5cbmNvbnN0IE9wdGlvbiA9IHouc3RyaWN0T2JqZWN0KHtcbiAgdmFsdWU6IHouc3RyaW5nKCksXG4gIGxhYmVsOiB6LnN0cmluZygpLFxuICBkZXNjcmlwdGlvbjogei5zdHJpbmcoKS5vcHRpb25hbCgpLFxuICBkaXNhYmxlZDogei5ib29sZWFuKCkub3B0aW9uYWwoKSxcbn0pXG5cbmNvbnN0IFF1ZXN0aW9uID0gei5zdHJpY3RPYmplY3Qoe1xuICBpZDogei5zdHJpbmcoKSxcbiAgbGFiZWw6IHouc3RyaW5nKCksXG4gIG9wdGlvbnM6IHouYXJyYXkoT3B0aW9uKS5taW4oMykubWF4KDYpLFxufSlcblxuY29uc3QgV2lkZ2V0U3RhdGUgPSB6LnN0cmljdE9iamVjdCh7XG4gIHRpdGxlOiB6LnN0cmluZygpLFxuICBzdWJ0aXRsZTogei5zdHJpbmcoKSxcbiAgcXVlc3Rpb25zOiB6LmFycmF5KFF1ZXN0aW9uKS5taW4oMikubWF4KDQpLFxuICBub3Rlc1BsYWNlaG9sZGVyOiB6LnN0cmluZygpLFxufSlcblxuZXhwb3J0IGRlZmF1bHQgV2lkZ2V0U3RhdGUiLCJqc29uU2NoZW1hIjp7fSwic2NoZW1hTW9kZSI6InpvZCIsInNjaGVtYVZhbGlkaXR5IjoidmFsaWQiLCJ2aWV3VmFsaWRpdHkiOiJ2YWxpZCIsImRlZmF1bHRTdGF0ZVZhbGlkaXR5IjoidmFsaWQifQ"
+}
